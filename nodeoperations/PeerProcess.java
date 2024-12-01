@@ -2,6 +2,7 @@ package nodeoperations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import nodeoperations.BitField;
@@ -27,6 +28,8 @@ public class PeerProcess {
     public static ArrayList<PeerConnection> peers = new ArrayList<>();
     public static ArrayList<Integer> allPeerIDs;
     public static Map<Integer, Piece> chunkIndexPieceMap = new HashMap<>();
+    public static LinkedList<MessageBody> messageBody = new LinkedList<MessageBody>();
+    public static ArrayList<HasCompleteFile> hasDownloadedCompleteFile = new ArrayList<HasCompleteFile>();
 
     public static void main(String[] args) {
         PeerProcess peerProcess = new PeerProcess();

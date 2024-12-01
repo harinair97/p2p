@@ -49,7 +49,7 @@ public class RequestPiece extends Thread {
                     targetPeer = peerIterator.next();
 
                     if(targetPeer.getRemotePeerId() == targetPeerId) {
-                        currentPeerId = targetPeer.getRemotePeerId();
+                        currentPeerId = targetPeer.getLocalPeerId();
                         connectionSocket = targetPeer.getConnectionSocket();
                         break;
                     }
@@ -88,11 +88,11 @@ public class RequestPiece extends Thread {
 
                 else {
 
-                    if(targetPeer.isInterested()) {
-                        peerBitfield = targetPeer.getBitfield();
+                    if(targetPeer.isRemotePeerInterested()) {
+                        peerBitfield = targetPeer.getPeerBitfield();
                         selectedPieceIndex = getPieceInfo(peerBitfield, BitField.bitfield);
                         if(selectedPieceIndex == 0) {
-                            targetPeer.setInterested(false);
+                            targetPeer.setPeerInterested(false);
                             NotInterested notInterestedMessage = new NotInterested();
                             synchronized (PeerProcess.messageBody) {
                                 MessageBody message = new MessageBody();
@@ -116,7 +116,7 @@ public class RequestPiece extends Thread {
 
                     else {
 
-                        peerBitfield = targetPeer.getBitfield();
+                        peerBitfield = targetPeer.getPeerBitfield();
                         selectedPieceIndex = getPieceInfo(peerBitfield, BitField.bitfield);
 
                         if(selectedPieceIndex == 0) {
@@ -133,7 +133,7 @@ public class RequestPiece extends Thread {
                         }
 
                         else {
-                            targetPeer.setInterested(true);
+                            targetPeer.setPeerInterested(true);
                             interestFlag = 0;
 
                             Interested interestedMessage = new Interested();
